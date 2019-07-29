@@ -1,0 +1,63 @@
+.piece {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 12.5%;
+  height: 12.5%;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.piece_dragging {
+  z-index: 1;
+}
+
+.piece_P {
+  background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wp.png);
+}
+
+.piece_R {
+  background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wr.png);
+}
+
+.piece_N {
+  background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wn.png);
+}
+
+.piece_B {
+  background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wb.png);
+}
+
+.piece_Q {
+  background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wq.png);
+}
+
+.piece_K {
+  background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wk.png);
+}
+
+.piece_p {
+  background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bp.png);
+}
+
+.piece_r {
+  background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/br.png);
+}
+
+.piece_n {
+  background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bn.png);
+}
+
+.piece_b {
+  background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bb.png);
+}
+
+.piece_q {
+  background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bq.png);
+}
+
+.piece_k {
+  background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bk.png);
+}
