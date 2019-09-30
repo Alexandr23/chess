@@ -16,7 +16,7 @@ class Chess {
           x: counter,
           y,
           type: item,
-          color: item === item.toUpperCase() ? 'w' : 'b'
+          color: item === item.toUpperCase() ? "w" : "b"
         });
         counter++;
       } else {
@@ -38,8 +38,15 @@ class Chess {
       }, []);
   }
 
+  getSquareFromCoordinates(coordinates) {
+    return "abcdefgh"[coordinates.x - 1] + "12345678"[coordinates.y - 1];
+  }
+
   move(move) {
-    return this.chess.move(move);
+    return this.chess.move({
+      from: this.getSquareFromCoordinates(move.from),
+      to: this.getSquareFromCoordinates(move.to)
+    });
   }
 
   getMoves() {
@@ -50,7 +57,7 @@ class Chess {
     return this.chess.fen();
   }
 
-  isGameOver () {
+  isGameOver() {
     return this.chess.game_over();
   }
 }

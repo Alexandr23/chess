@@ -4,7 +4,7 @@ import "./style.scss";
 
 class App extends React.Component {
   render() {
-    return <Game />;
+    return <Game id="1234" />;
   }
 }
 
