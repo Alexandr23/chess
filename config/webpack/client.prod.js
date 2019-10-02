@@ -1,76 +1,66 @@
-const webpack = require('webpack');
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const config = require('../main');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const ManifestPlugin = require('webpack-manifest-plugin');
+const webpack = require("webpack");
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const config = require("../main");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = {
   mode: process.env.NODE_ENV,
 
   entry: {
-    app: path.resolve('src/client/index.tsx'),
-    vendor: ['react', 'react-dom']
+    app: path.resolve("client/index.js"),
+    vendor: ["react", "react-dom"]
   },
 
   output: {
-    path: path.resolve('dist/static'),
-    filename: '[name].[hash].js',
-    publicPath: '/'
+    path: path.resolve("dist"),
+    // filename: '[name].[hash].js',
+    filename: "[name].js",
+    publicPath: "/"
   },
 
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
-    modules: [path.resolve(__dirname), 'node_modules', 'app', 'app/redux'],
-    alias: {
-      App: path.resolve('src/app'),
-      Config: path.resolve('config')
-    }
+    extensions: [".js", ".jsx"]
+    // modules: [path.resolve(__dirname), 'node_modules', 'app', 'app/redux'],
+    // alias: {
+    //   Config: path.resolve('config')
+    // }
   },
 
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'styles.[hash].css'
+      // filename: 'styles.[hash].css'
+      filename: "styles.css"
     }),
-    new ManifestPlugin({
-      fileName: path.resolve('dist', 'staticManifest.json'),
-      publicPath: '',
-      filter: fileDescriptor => !fileDescriptor.isModuleAsset
+    new OptimizeCSSAssetsPlugin({
+      cssProcessorPluginOptions: {
+        preset: ["default", { convertValues: false }]
+      }
     }),
-    new OptimizeCSSAssetsPlugin({ cssProcessorPluginOptions: { preset: ['default', { convertValues: false }] } }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production'),
-      'process.env.PROD_MODE': JSON.stringify(process.env.PROD_MODE)
+      "process.env.NODE_ENV": JSON.stringify("production"),
+      "process.env.PROD_MODE": JSON.stringify(process.env.PROD_MODE)
     })
-    // new BundleAnalyzerPlugin(),
   ],
 
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          name: 'vendor',
-          test: /\.js?$/,
-          chunks: 'all'
-        }
-      }
-    }
-  },
+  // optimization: {
+  //  splitChunks: {
+  //    cacheGroups: {
+  //      vendor: {
+  //        name: "vendor",
+  //        test: /\.js?$/,
+  //        chunks: "all"
+  //      }
+  //    }
+  //  }
+  //},
 
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: 'ts-loader',
-            options: {
-              silent: true
-            }
-          }
-        ]
+        use: ["babel-loader"]
       },
       {
         test: /\.css/,
@@ -79,61 +69,61 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              fallback: 'style-loader',
-              publicPath: '/static/'
+              fallback: "style-loader",
+              publicPath: "/"
             }
           },
-          'css-loader'
+          "css-loader"
         ]
       },
       {
         test: /\.scss/,
-        include: path.resolve('./src/app/styles'),
+        include: path.resolve("./src/app/styles"),
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              fallback: 'style-loader',
-              publicPath: '/static/'
+              fallback: "style-loader",
+              publicPath: "/"
             }
           },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
-              modules: true
+              // modules: true
             }
           },
-          'sass-loader'
+          "sass-loader"
         ]
       },
       {
         test: /\.scss/,
-        exclude: [/node_modules/, path.resolve('./src/app/styles')],
+        exclude: [/node_modules/, path.resolve("./src/app/styles")],
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              fallback: 'style-loader',
-              publicPath: '/static/'
+              fallback: "style-loader",
+              publicPath: "/"
             }
           },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
-              modules: true,
-              localIdentName: '[local]__[hash:base64:5]'
+              // modules: true,
+              // localIdentName: '[local]__[hash:base64:5]'
             }
           },
-          'sass-loader'
+          "sass-loader"
         ]
       },
       {
         test: /\.(ttf|eot|woff2?)(\?[a-z0-9]+)?$/,
-        use: 'file-loader?name=font/[name]-[hash].[ext]'
+        use: "file-loader?name=font/[name]-[hash].[ext]"
       },
       {
         test: /\.(jpe?g|png|svg|gif)$/i,
-        use: ['url-loader?limit=5000&name=images/build/[name]-[hash].[ext]']
+        use: ["url-loader?limit=5000&name=images/build/[name]-[hash].[ext]"]
       }
     ]
   }

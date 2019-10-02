@@ -2,10 +2,13 @@ const express = require("express");
 const graphqlHTTP = require("express-graphql");
 const schema = require("./schema.js");
 const path = require("path");
-const config = require("../config/main");
+// const config = require("../config/main");
 
-let port = 3000;
 const app = express();
+
+const HOST = process.env.APP_HOST;
+const PORT = process.env.APP_PORT;
+const STATIC_PORT = process.env.APP_HOST_PORT || process.env.APP_PORT;
 
 app.use('/dist', express.static(path.join(__dirname, '../dist'), { fallthrough: false }));
 
@@ -23,15 +26,17 @@ app.use("/", (req, res) => {
   <html>
     <head>
       <title>Chess</title>
-      <link rel="stylesheet" href="/client/styles.css">
+      <link rel="stylesheet" href="http://${HOST}:${STATIC_PORT}/dist/styles.css">
     </head>
     <body>
       <div id="app"></div>
-      <script src="${config.STATIC_URL}/dist/app.js"></script>
+      <script src="http://${HOST}:${STATIC_PORT}/dist/app.js"></script>
+      
     </body>
   </html>
   `)
 });
 
-app.listen(port);
-console.log("GraphQL API server running at localhost: " + port);
+app.listen(PORT);
+
+console.log(`Chess App running at ${HOST}:${STATIC_PORT}`);
