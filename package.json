@@ -6,7 +6,7 @@
   "scripts": {
     "server:dev": "NODE_ENV=development  node server/index.js",
     "server:prod": "NODE_ENV=production node server/index.js",
-    "client:dev": "NODE_ENV=development webpack-dev-server --config config/webpack/client.js",
+    "client:dev": "NODE_ENV=development webpack-dev-server  --config config/webpack/client.js",
     "client:prod": "NODE_ENV=production webpack --config config/webpack/client.js",
     "dev": "npm-run-all -p server:dev client:dev",
     "clean": "rm -rf dist",

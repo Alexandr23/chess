@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const config = require("../main");
+// const config = require("../main");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = {
@@ -38,8 +38,7 @@ module.exports = {
       }
     }),
     new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify("production"),
-      "process.env.PROD_MODE": JSON.stringify(process.env.PROD_MODE)
+      "process.env.NODE_ENV": JSON.stringify("production")
     })
   ],
 

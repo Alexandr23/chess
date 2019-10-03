@@ -3,6 +3,8 @@ const pgPromise = require("pg-promise");
 
 const pgp = pgPromise({});
 
+console.log(process.env);
+
 const config = {
   host: process.env.POSTGRES_HOST,
   port: process.env.POSTGRES_PORT,

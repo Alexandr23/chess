@@ -5,10 +5,15 @@ services:
     depends_on:
       - db
     ports:
-      - "8080:8889"
+      - "8889:8889"
+      - "8890:8890"
     environment:
       POSTGRES_HOST: db
-      APP_HOST_PORT: 8080
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: chess
+    volumes: 
+      - ./client:/usr/src/app/client
 
   db:
     image: postgres:11.2-alpine
