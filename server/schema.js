@@ -1,11 +1,14 @@
 const db = require("./db").db;
+const GameModel = require("./models/GameModel");
 
 let {
   GraphQLString,
   GraphQLList,
   GraphQLObjectType,
   GraphQLID,
-  GraphQLSchema
+  GraphQLSchema,
+  GraphQLInt,
+  GraphQLNonNull
 } = require("graphql");
 
 const UserType = new GraphQLObjectType({
@@ -111,7 +114,7 @@ const GameType = new GraphQLObjectType({
   }
 });
 
-const QueryRootType = new GraphQLObjectType({
+const query = new GraphQLObjectType({
   name: "AppSchema",
   fields: {
     user: {
@@ -142,31 +145,40 @@ const QueryRootType = new GraphQLObjectType({
       type: GameType,
       args: { id: { type: GraphQLID } },
       resolve(parentValue, args) {
-        const query = `SELECT * FROM games WHERE id=$1`;
-        const values = [args.id];
-
-        return db
-          .one(query, values)
-          .then(res => res)
-          .catch(err => err);
+        return GameModel.getById(args.id);
       }
     },
     gameList: {
       type: new GraphQLList(GameType),
       resolve: function() {
-        const query = `SELECT * FROM games`;
+        return GameModel.getAll();
+      }
+    }
+  }
+});
 
-        return db
-          .any(query)
-          .then(res => res)
-          .catch(err => err);
+const mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    createGame: {
+      type: GameType,
+      args: {
+        playerWId: { type: new GraphQLNonNull(GraphQLInt) },
+        playerBId: { type: new GraphQLNonNull(GraphQLInt) }
+      },
+      resolve(parentValue, args) {
+        return GameModel.create({
+          playerWId: args.playerWId,
+          playerBId: args.playerBId
+        });
       }
     }
   }
 });
 
 const AppSchema = new GraphQLSchema({
-  query: QueryRootType
+  query,
+  mutation
 });
 
 module.exports = AppSchema;

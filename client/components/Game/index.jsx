@@ -20,18 +20,18 @@ class Game extends React.Component {
     };
   }
 
-  componentDidMount() {
-    api
-      .getGame(this.props.gameId)
-      .then(response => {
-        this.setState({ isLoaded: true });
-        console.log(response);
-      })
-      .catch(error => {
-        this.setState({ isLoaded: true });
-        console.log(error);
-      });
-  }
+  // componentDidMount() {
+  //   api
+  //     .getGame(this.props.gameId)
+  //     .then(response => {
+  //       this.setState({ isLoaded: true });
+  //       console.log(response);
+  //     })
+  //     .catch(error => {
+  //       this.setState({ isLoaded: true });
+  //       console.log(error);
+  //     });
+  // }
 
   handleMove(move) {
     const moveResult = this.chess.move(move);

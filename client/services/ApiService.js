@@ -48,6 +48,15 @@ class ApiService {
     `;
     return request(query);
   }
+
+  createGame(game) {
+    const query = `
+      mutation {
+        createGame (playerWId: ${game.playerWId}, playerBId: ${game.playerBId}) {${GAME}}
+      }
+    `;
+    return request(query);
+  }
 }
 
 export default new ApiService();

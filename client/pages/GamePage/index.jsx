@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import api from "../../services/ApiService";
 import Game from "../../components/Game";
@@ -33,7 +33,6 @@ class GamePage extends React.Component {
 
     return (
       <div className="game-page">
-        <Link to="/games">Back to list</Link>
         {isLoading && "Loading"}
         {JSON.stringify(game)}
         {!isLoading && game && <Game game={game} />}
