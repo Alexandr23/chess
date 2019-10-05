@@ -17,18 +17,64 @@ const UserType = new GraphQLObjectType({
   }
 });
 
+const MoveType = new GraphQLObjectType({
+  name: "Move",
+  fields: {
+    id: { type: GraphQLID },
+    gameId: {
+      type: GraphQLID,
+      resolve(parentValue) {
+        return parentValue.game_id;
+      }
+    },
+    playerId: {
+      type: GraphQLID,
+      resolve(parentValue) {
+        return parentValue.player_id;
+      }
+    },
+    fenFrom: {
+      type: GraphQLString,
+      resolve(parentValue) {
+        return parentValue.fen_from;
+      }
+    },
+    fenTo: {
+      type: GraphQLString,
+      resolve(parentValue) {
+        return parentValue.fen_to;
+      }
+    },
+    createTime: {
+      type: GraphQLString,
+      resolve(parentValue) {
+        return parentValue.create_time;
+      }
+    }
+  }
+});
+
 const GameType = new GraphQLObjectType({
   name: "Game",
   fields: {
     id: { type: GraphQLString },
-    history: { type: GraphQLString },
+    history: {
+      type: GraphQLList(MoveType),
+      resolve(parentValue) {
+        const query = `SELECT * FROM moves WHERE game_id=$1`;
+        const values = [parentValue.id];
+
+        return db
+          .any(query, values)
+          .then(res => res)
+          .catch(err => err);
+      }
+    },
     create_time: { type: GraphQLString },
     creator_name: { type: GraphQLString },
     playerW: {
       type: UserType,
       resolve(parentValue) {
-        console.log(parentValue);
-
         const query = `SELECT * FROM users WHERE id=$1`;
         const values = [parentValue.player_w_id];
 
@@ -81,7 +127,7 @@ const QueryRootType = new GraphQLObjectType({
           .catch(err => err);
       }
     },
-    users: {
+    userList: {
       type: new GraphQLList(UserType),
       resolve: function() {
         const query = "SELECT * FROM users";
@@ -105,7 +151,7 @@ const QueryRootType = new GraphQLObjectType({
           .catch(err => err);
       }
     },
-    games: {
+    gameList: {
       type: new GraphQLList(GameType),
       resolve: function() {
         const query = `SELECT * FROM games`;

@@ -1,10 +1,25 @@
 import React from "react";
-import Game from "../Game";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+
+import GameListPage from "../../pages/GameListPage";
+import GamePage from "../../pages/GamePage";
 import "./style.scss";
 
 class App extends React.Component {
   render() {
-    return <Game id="1234" />;
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route path="/games">
+            <GameListPage />
+          </Route>
+
+          <Route path="/game/:id">
+            <GamePage />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    );
   }
 }
 

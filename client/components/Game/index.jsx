@@ -23,7 +23,6 @@ class Game extends React.Component {
   componentDidMount() {
     api
       .getGame(this.props.gameId)
-      .then(res => res.json())
       .then(response => {
         this.setState({ isLoaded: true });
         console.log(response);

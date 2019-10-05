@@ -34,7 +34,9 @@
     "pg-promise": "^9.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-draggable": "^3.3.0"
+    "react-draggable": "^3.3.0",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",
