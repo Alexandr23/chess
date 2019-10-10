@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import { Input, Button } from 'antd';
 
 import api from "../../services/ApiService";
 
@@ -48,19 +49,19 @@ class GameCreatePage extends React.Component {
     return (
       <div className="game-create-page">
         <form onSubmit={this.createGame}>
-          <input
+          <Input
             name="playerWId"
             type="text"
             value={this.state.playerWId}
             onChange={this.onChange}
           />
-          <input
+          <Input
             name="playerBId"
             type="text"
             value={this.state.playerBId}
             onChange={this.onChange}
           />
-          <button type="submit">Create</button>
+          <Button type="primary">Create</Button>
         </form>
       </div>
     );

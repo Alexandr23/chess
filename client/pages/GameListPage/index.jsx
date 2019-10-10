@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import api from "../../services/ApiService";
+import GameListItem from "../../components/GameListItem";
 
 class GameListPage extends React.Component {
   constructor(props) {
@@ -37,15 +37,7 @@ class GameListPage extends React.Component {
       <div className="game-list-page">
         {isGameList && (
           <div className="game-list-page__list">
-            {gameList.map(game => (
-              <Link
-                className="game-list-page__game"
-                to={`/game/${game.id}`}
-                key={game.id}
-              >
-                {`#${game.id}: ${game.playerW.name} - ${game.playerB.name}`}
-              </Link>
-            ))}
+            {gameList.map(game => (<GameListItem game={game} key={game.id} />))}
           </div>
         )}
       </div>
