@@ -1,14 +1,16 @@
+$size: 320px;
+
 .board {
   position: relative;
-  width: 400px;
-  height: 400px;
+  width: $size;
+  height: $size;
   background-image: url("https://images.chesscomfiles.com/chess-themes/boards/green/76.png");
   background-size: 100% 100%;
 }
 
 .board__pieces {
-  width: 400px;
-  height: 400px;
+  width: $size;
+  height: $size;
 }
 
 .board__game-over {

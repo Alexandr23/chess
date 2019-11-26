@@ -4,8 +4,8 @@ import Draggable from "react-draggable";
 import "./style.scss";
 import { isEqual } from "lodash-es";
 
-const BOARD_SIZE = 400; // 400px
-const SQUARE_SIZE = BOARD_SIZE / 8; // 50px
+const BOARD_SIZE = 320; // 320px
+const SQUARE_SIZE = BOARD_SIZE / 8; // 40px
 
 class Piece extends React.Component {
   constructor(props) {

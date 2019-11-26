@@ -34,7 +34,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: games; Type: TABLE; Schema: public; Owner: postgres
+-- Name: games; Type: TABLE; Schema: public; Owner: tggelqhlazkxne
 --
 
 CREATE TABLE public.games (
@@ -46,10 +46,10 @@ CREATE TABLE public.games (
 );
 
 
-ALTER TABLE public.games OWNER TO postgres;
+ALTER TABLE public.games OWNER TO tggelqhlazkxne;
 
 --
--- Name: games_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: games_id_seq; Type: SEQUENCE; Schema: public; Owner: tggelqhlazkxne
 --
 
 CREATE SEQUENCE public.games_id_seq
@@ -60,17 +60,17 @@ CREATE SEQUENCE public.games_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.games_id_seq OWNER TO postgres;
+ALTER TABLE public.games_id_seq OWNER TO tggelqhlazkxne;
 
 --
--- Name: games_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: games_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tggelqhlazkxne
 --
 
 ALTER SEQUENCE public.games_id_seq OWNED BY public.games.id;
 
 
 --
--- Name: moves; Type: TABLE; Schema: public; Owner: postgres
+-- Name: moves; Type: TABLE; Schema: public; Owner: tggelqhlazkxne
 --
 
 CREATE TABLE public.moves (
@@ -83,10 +83,10 @@ CREATE TABLE public.moves (
 );
 
 
-ALTER TABLE public.moves OWNER TO postgres;
+ALTER TABLE public.moves OWNER TO tggelqhlazkxne;
 
 --
--- Name: moves_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: moves_id_seq; Type: SEQUENCE; Schema: public; Owner: tggelqhlazkxne
 --
 
 CREATE SEQUENCE public.moves_id_seq
@@ -97,17 +97,17 @@ CREATE SEQUENCE public.moves_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.moves_id_seq OWNER TO postgres;
+ALTER TABLE public.moves_id_seq OWNER TO tggelqhlazkxne;
 
 --
--- Name: moves_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: moves_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tggelqhlazkxne
 --
 
 ALTER SEQUENCE public.moves_id_seq OWNED BY public.moves.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: postgres
+-- Name: users; Type: TABLE; Schema: public; Owner: tggelqhlazkxne
 --
 
 CREATE TABLE public.users (
@@ -117,10 +117,10 @@ CREATE TABLE public.users (
 );
 
 
-ALTER TABLE public.users OWNER TO postgres;
+ALTER TABLE public.users OWNER TO tggelqhlazkxne;
 
 --
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: tggelqhlazkxne
 --
 
 CREATE SEQUENCE public.users_id_seq
@@ -131,38 +131,38 @@ CREATE SEQUENCE public.users_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.users_id_seq OWNER TO postgres;
+ALTER TABLE public.users_id_seq OWNER TO tggelqhlazkxne;
 
 --
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tggelqhlazkxne
 --
 
 ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: tggelqhlazkxne
 --
 
 ALTER TABLE ONLY public.games ALTER COLUMN id SET DEFAULT nextval('public.games_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: tggelqhlazkxne
 --
 
 ALTER TABLE ONLY public.moves ALTER COLUMN id SET DEFAULT nextval('public.moves_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: tggelqhlazkxne
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
--- Data for Name: games; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: games; Type: TABLE DATA; Schema: public; Owner: tggelqhlazkxne
 --
 
 COPY public.games (id, creator_id, create_time, player_w_id, player_b_id) FROM stdin;
@@ -171,14 +171,14 @@ COPY public.games (id, creator_id, create_time, player_w_id, player_b_id) FROM s
 
 
 --
--- Name: games_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: games_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tggelqhlazkxne
 --
 
 SELECT pg_catalog.setval('public.games_id_seq', 1, true);
 
 
 --
--- Data for Name: moves; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: moves; Type: TABLE DATA; Schema: public; Owner: tggelqhlazkxne
 --
 
 COPY public.moves (id, game_id, player_id, fen_from, fen_to, create_time) FROM stdin;
@@ -186,14 +186,14 @@ COPY public.moves (id, game_id, player_id, fen_from, fen_to, create_time) FROM s
 
 
 --
--- Name: moves_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: moves_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tggelqhlazkxne
 --
 
 SELECT pg_catalog.setval('public.moves_id_seq', 1, false);
 
 
 --
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: tggelqhlazkxne
 --
 
 COPY public.users (id, name, created) FROM stdin;
@@ -203,14 +203,14 @@ COPY public.users (id, name, created) FROM stdin;
 
 
 --
--- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tggelqhlazkxne
 --
 
 SELECT pg_catalog.setval('public.users_id_seq', 2, true);
 
 
 --
--- Name: games_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: games_pkey; Type: CONSTRAINT; Schema: public; Owner: tggelqhlazkxne
 --
 
 ALTER TABLE ONLY public.games
@@ -218,7 +218,7 @@ ALTER TABLE ONLY public.games
 
 
 --
--- Name: moves_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: moves_pkey; Type: CONSTRAINT; Schema: public; Owner: tggelqhlazkxne
 --
 
 ALTER TABLE ONLY public.moves
@@ -226,7 +226,7 @@ ALTER TABLE ONLY public.moves
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: tggelqhlazkxne
 --
 
 ALTER TABLE ONLY public.users
@@ -234,7 +234,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: fk_game_creator; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fk_game_creator; Type: FK CONSTRAINT; Schema: public; Owner: tggelqhlazkxne
 --
 
 ALTER TABLE ONLY public.games
@@ -242,7 +242,7 @@ ALTER TABLE ONLY public.games
 
 
 --
--- Name: fk_game_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fk_game_id; Type: FK CONSTRAINT; Schema: public; Owner: tggelqhlazkxne
 --
 
 ALTER TABLE ONLY public.moves
@@ -250,7 +250,7 @@ ALTER TABLE ONLY public.moves
 
 
 --
--- Name: fk_game_player_b; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fk_game_player_b; Type: FK CONSTRAINT; Schema: public; Owner: tggelqhlazkxne
 --
 
 ALTER TABLE ONLY public.games
@@ -258,7 +258,7 @@ ALTER TABLE ONLY public.games
 
 
 --
--- Name: fk_game_player_w; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fk_game_player_w; Type: FK CONSTRAINT; Schema: public; Owner: tggelqhlazkxne
 --
 
 ALTER TABLE ONLY public.games
@@ -266,7 +266,7 @@ ALTER TABLE ONLY public.games
 
 
 --
--- Name: fk_player_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fk_player_id; Type: FK CONSTRAINT; Schema: public; Owner: tggelqhlazkxne
 --
 
 ALTER TABLE ONLY public.moves
@@ -274,12 +274,12 @@ ALTER TABLE ONLY public.moves
 
 
 --
--- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: tggelqhlazkxne
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
+REVOKE ALL ON SCHEMA public FROM tggelqhlazkxne;
+GRANT ALL ON SCHEMA public TO tggelqhlazkxne;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 

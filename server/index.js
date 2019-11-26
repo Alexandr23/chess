@@ -21,9 +21,10 @@ app.use(
 );
 
 app.use("/", (req, res) => {
+  console.log("Got request!");
   res.send(html());
 });
 
-app.listen(process.env.APP_PORT);
+app.listen(process.env.PORT || process.env.APP_PORT);
 
 console.log(`Chess App running`);
