@@ -10,7 +10,8 @@
     "client:prod": "NODE_ENV=production webpack --config config/webpack/client.js",
     "dev": "npm-run-all -p server:dev client:dev",
     "clean": "rm -rf dist",
-    "prod": "npm-run-all -s clean -p client:prod server:prod"
+    "prod": "npm-run-all -s clean -p client:prod server:prod",
+    "start": "npm run prod"
   },
   "repository": {
     "type": "git",

@@ -19,3 +19,29 @@ docker-compose up
 ```
 psql -h localhost -p 3030 -U postgres chess < dump.sql
 ```
+
+
+## Heroku
+
+Логин в `heroku-cli`
+
+```
+heroku login
+```
+
+Создать новый проект на `heroku`
+
+```
+heroku create
+```
+Добавить `git` в `heroku`-приложение
+
+```
+heroku git:remote -a <heroku_project_name>
+```
+
+Push в репозиторий `heroku`
+
+```
+git push heroku master
+```
