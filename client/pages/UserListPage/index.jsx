@@ -1,16 +1,15 @@
 import React from "react";
 
 import api from "../../services/ApiService";
-import GameListItem from "../../components/GameListItem";
 
-class GameListPage extends React.Component {
+class UserListPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       isLoading: false,
       isLoaded: false,
-      gameList: null
+      list: null,
     };
   }
 
@@ -18,12 +17,12 @@ class GameListPage extends React.Component {
     this.setState({ isLoading: true });
 
     api
-      .getGameList()
+      .getUserList()
       .then(response => {
         this.setState({
           isLoading: false,
           isLoaded: true,
-          gameList: response.data.gameList,
+          list: response.data.userList,
         });
       })
       .catch(error => {
@@ -39,14 +38,14 @@ class GameListPage extends React.Component {
       return <div className="game-list-page">Loading</div>;
     }
 
-    const { gameList } = this.state;
-    const isGameList = Array.isArray(gameList) && gameList.length > 0;
+    const { list } = this.state;
+    const isList = Array.isArray(list) && list.length > 0;
 
     return (
       <div className="game-list-page">
-        {isGameList && (
+        {isList && (
           <div className="game-list-page__list">
-            {gameList.map(game => (<GameListItem game={game} key={game.id} />))}
+            {list.map(user => (<div>{user.name}</div>))}
           </div>
         )}
       </div>
@@ -54,4 +53,4 @@ class GameListPage extends React.Component {
   }
 }
 
-export default GameListPage;
+export default UserListPage;

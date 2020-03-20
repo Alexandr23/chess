@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Input, Button } from 'antd';
+import { Button, Select } from 'antd';
 
 import api from "../../services/ApiService";
 
@@ -13,11 +13,23 @@ class GameCreatePage extends React.Component {
         playerWId: null,
         playerBId: null
       },
-      isSubmitting: false
+      isSubmitting: false,
+      userList: [],
     };
 
-    this.onChange = this.onChange.bind(this);
+    this.onSelect = this.onSelect.bind(this);
     this.createGame = this.createGame.bind(this);
+    this.onFetchUserListSuccess = this.onFetchUserListSuccess.bind(this);
+  }
+
+  componentDidMount() {
+    api.getUserList().then(this.onFetchUserListSuccess);
+  }
+
+  onFetchUserListSuccess(response) {
+    this.setState({
+      userList: response.data.userList,
+    })
   }
 
   createGame(event) {
@@ -37,31 +49,43 @@ class GameCreatePage extends React.Component {
       });
   }
 
-  onChange(event) {
-    const form = {
-      ...this.state.form,
-      [event.target.name]: event.target.value
-    };
-    this.setState({ form });
+  onSelect(fieldName, value) {
+    console.log(fieldName, value);
+
+    this.setState({
+      form: {
+        ...this.state.form,
+        [fieldName]: value,
+      }
+    });
   }
 
   render() {
     return (
       <div className="game-create-page">
         <form onSubmit={this.createGame}>
-          <Input
-            name="playerWId"
-            type="text"
-            value={this.state.playerWId}
-            onChange={this.onChange}
-          />
-          <Input
-            name="playerBId"
-            type="text"
-            value={this.state.playerBId}
-            onChange={this.onChange}
-          />
-          <Button type="primary">Create</Button>
+          <Select
+            showSearch
+            style={{ width: 200 }}
+            placeholder="Select a player"
+            optionFilterProp="children"
+            onSelect={(value) => this.onSelect('playerWId', value)}
+            filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+          >
+            {this.state.userList.map((user) => <Select.Option key={user.id} value={user.id}>{user.name}</Select.Option>)}
+          </Select>
+
+          <Select
+            showSearch
+            style={{ width: 200 }}
+            placeholder="Select a player"
+            optionFilterProp="children"
+            onSelect={(value) => this.onSelect('playerBId', value)}
+            filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+          >
+            {this.state.userList.map((user) => <Select.Option key={user.id} value={user.id}>{user.name}</Select.Option>)}
+          </Select>
+          <Button htmlType="submit" type="primary">Create</Button>
         </form>
       </div>
     );

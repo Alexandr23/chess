@@ -5,6 +5,8 @@ import Layout from "../../components/Layout";
 import GameListPage from "../../pages/GameListPage";
 import GamePage from "../../pages/GamePage";
 import GameCreatePage from "../../pages/GameCreatePage";
+import UserListPage from "../../pages/UserListPage";
+import UserCreatePage from "../../pages/UserCreatePage";
 import "./style.scss";
 
 class App extends React.Component {
@@ -23,6 +25,14 @@ class App extends React.Component {
 
             <Route path="/game/:id">
               <GamePage />
+            </Route>
+
+            <Route path="/users">
+              <UserListPage />
+            </Route>
+
+            <Route path="/user/create">
+              <UserCreatePage />
             </Route>
           </Switch>
         </Layout>

@@ -57,6 +57,33 @@ class ApiService {
     `;
     return request(query);
   }
+
+  getUser(id) {
+    const query = `
+      query {
+        user (id: ${id}) {${USER}}
+      }
+    `;
+    return request(query);
+  }
+
+  getUserList() {
+    const query = `
+      query {
+        userList {${USER}}
+      }
+    `;
+    return request(query);
+  }
+
+  createUser(user) {
+    const query = `
+      mutation {
+        createUser (name: "${user.name}") {${USER}}
+      }
+    `;
+    return request(query);
+  }
 }
 
 export default new ApiService();

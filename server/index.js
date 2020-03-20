@@ -1,9 +1,8 @@
 const express = require("express");
 const path = require("path");
-const graphqlHTTP = require("express-graphql");
 
-const schema = require("./schema.js");
-const html = require("./html.js").html;
+const { graphql } = require("./graphql/index");
+const { html } = require("./html.js");
 
 const app = express();
 
@@ -12,13 +11,7 @@ app.use(
   express.static(path.join(__dirname, "../dist"), { fallthrough: false })
 );
 
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    schema: schema,
-    graphiql: true
-  })
-);
+app.use("/graphql", graphql);
 
 app.use("/", (req, res) => {
   console.log("Got request!");

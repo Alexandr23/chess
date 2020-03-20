@@ -34,7 +34,6 @@ class GamePage extends React.Component {
     return (
       <div className="game-page">
         {isLoading && "Loading"}
-        {JSON.stringify(game)}
         {!isLoading && game && <Game game={game} />}
       </div>
     );
