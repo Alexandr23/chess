@@ -4,7 +4,7 @@ import { Input, Button } from 'antd';
 
 import api from "../../services/ApiService";
 
-class UserCreatePage extends React.Component {
+class SignInPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -26,27 +26,12 @@ class UserCreatePage extends React.Component {
     this.setState({ isSubmitting: true });
 
     api
-      .signUp(this.state.form)
-      .then(res => {
-        console.log(res);
+      .signIn(this.state.form)
+      .finally(() => {
         this.setState({ isSubmitting: false });
-        // this.props.history.push(`/users`);
       })
-      .catch(error => {
-        this.setState({ isSubmitting: false });
-        console.log(error);
-      });
-
-    // api
-    //   .createUser(this.state.form)
-    //   .then(response => {
-    //     this.setState({ isSubmitting: false });
-    //     this.props.history.push(`/users`);
-    //   })
-    //   .catch(error => {
-    //     this.setState({ isSubmitting: false });
-    //     console.log(error);
-    //   });
+      .then(console.log)
+      .catch(console.log);
   }
 
   onChange(event) {
@@ -62,7 +47,7 @@ class UserCreatePage extends React.Component {
     const { login, password } = this.state.form;
 
     return (
-      <div className="user-create-page">
+      <div className="sign-in-page">
         <form onSubmit={this.onSubmit}>
           <Input
             name="login"
@@ -80,11 +65,11 @@ class UserCreatePage extends React.Component {
             onChange={this.onChange}
           />
 
-          <Button htmlType="submit" type="primary">Sign up</Button>
+          <Button htmlType="submit" type="primary">Sign in</Button>
         </form>
       </div>
     );
   }
 }
 
-export default withRouter(UserCreatePage);
+export default withRouter(SignInPage);

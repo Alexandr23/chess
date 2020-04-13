@@ -1,20 +1,24 @@
 const express = require("express");
 const path = require("path");
+const bodyParser = require('body-parser')
 
 const { graphql } = require("./graphql/index");
 const { html } = require("./html.js");
+const routes = require('./routes/index');
+const validateToken = require('./middlewares/validate-token');
 
 const app = express();
+const router = express.Router();
 
-app.use(
-  "/dist",
-  express.static(path.join(__dirname, "../dist"), { fallthrough: false })
-);
+app.use("/dist", express.static(path.join(__dirname, "../dist"), { fallthrough: false }));
 
-app.use("/graphql", graphql);
+app.use(bodyParser.json());
+
+app.use("/api", routes(router));
+
+app.use("/graphql", validateToken, graphql);
 
 app.use("/", (req, res) => {
-  console.log("Got request!");
   res.send(html());
 });
 

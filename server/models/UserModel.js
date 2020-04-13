@@ -2,8 +2,8 @@ const db = require("../db").db;
 
 class UserModel {
   static create(user) {
-    const query = `INSERT INTO users (name) VALUES($1) RETURNING *`;
-    const values = [user.name];
+    const query = `INSERT INTO users (login, hash) VALUES($1, $2) RETURNING *`;
+    const values = [user.login, user.hash];
 
     return db
       .one(query, values)
@@ -27,6 +27,15 @@ class UserModel {
     return db
       .any(query)
       .then(res => res)
+      .catch(err => err);
+  }
+
+  static find(login) {
+    const query = `SELECT * FROM users WHERE login = '${login}'`;
+
+    return db
+      .any(query)
+      .then(res => res.length ? res[0] : null)
       .catch(err => err);
   }
 }

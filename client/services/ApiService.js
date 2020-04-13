@@ -2,7 +2,7 @@ const API_URL = "/graphql/";
 
 const USER = `
   id
-  name
+  login
 `;
 
 const MOVE = `
@@ -25,7 +25,10 @@ const GAME = `
 const request = query => {
   return fetch(API_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      token: localStorage.getItem('token'),
+    },
     body: JSON.stringify({ query })
   }).then(res => res.json());
 };
@@ -83,6 +86,39 @@ class ApiService {
       }
     `;
     return request(query);
+  }
+
+  signUp(user) {
+    return fetch('/api/signup', {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(this.updateToken)
+      .then(res => res.json());
+  }
+
+  signIn(user) {
+    return fetch('/api/signin', {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(this.updateToken)
+      .then(res => res.json())
+  }
+
+  updateToken(res) {
+    const token = res.headers.get('token');
+    localStorage.setItem('token', token);
+
+    console.log(token);
+
+    return res;
   }
 }
 

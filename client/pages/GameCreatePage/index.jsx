@@ -72,7 +72,7 @@ class GameCreatePage extends React.Component {
             onSelect={(value) => this.onSelect('playerWId', value)}
             filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
           >
-            {this.state.userList.map((user) => <Select.Option key={user.id} value={user.id}>{user.name}</Select.Option>)}
+            {this.state.userList.map((user) => <Select.Option key={user.id} value={user.id}>{user.login}</Select.Option>)}
           </Select>
 
           <Select
@@ -83,7 +83,7 @@ class GameCreatePage extends React.Component {
             onSelect={(value) => this.onSelect('playerBId', value)}
             filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
           >
-            {this.state.userList.map((user) => <Select.Option key={user.id} value={user.id}>{user.name}</Select.Option>)}
+            {this.state.userList.map((user) => <Select.Option key={user.id} value={user.id}>{user.login}</Select.Option>)}
           </Select>
           <Button htmlType="submit" type="primary">Create</Button>
         </form>

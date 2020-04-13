@@ -2,7 +2,7 @@ const db = require("../db").db;
 
 class GameModel {
   static create(game) {
-    const query = `INSERT INTO games(player_w_id, player_b_id, creator_id) VALUES($1, $2, 1) RETURNING *`;
+    const query = `INSERT INTO games(player_w_id, player_b_id, creator_id) VALUES($1, $2, $1) RETURNING *`;
     const values = [game.playerWId, game.playerBId];
 
     return db

@@ -6,11 +6,11 @@ const { UserType } = require("../../graphql/user/type");
 exports.GraphqlUserCreateMutation = {
   type: UserType,
   args: {
-    name: { type: new GraphQLNonNull(GraphQLString) },
+    login: { type: new GraphQLNonNull(GraphQLString) },
   },
   resolve(parentValue, args) {
     return UserModel.create({
-      name: args.name,
+      login: args.login,
     });
   },
 };

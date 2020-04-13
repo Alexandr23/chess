@@ -7,6 +7,8 @@ import GamePage from "../../pages/GamePage";
 import GameCreatePage from "../../pages/GameCreatePage";
 import UserListPage from "../../pages/UserListPage";
 import UserCreatePage from "../../pages/UserCreatePage";
+import SignInPage from "../../pages/SignInPage";
+
 import "./style.scss";
 
 class App extends React.Component {
@@ -31,8 +33,12 @@ class App extends React.Component {
               <UserListPage />
             </Route>
 
-            <Route path="/user/create">
+            <Route path="/signup">
               <UserCreatePage />
+            </Route>
+
+            <Route path="/signin">
+              <SignInPage />
             </Route>
           </Switch>
         </Layout>
