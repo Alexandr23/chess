@@ -1,14 +1,14 @@
 const webpack = require("webpack");
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-// const config = require("../main");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   mode: process.env.NODE_ENV,
 
   entry: {
-    app: path.resolve("client/index.js"),
+    app: path.resolve("client/index.tsx"),
     vendor: ["react", "react-dom"]
   },
 
@@ -20,7 +20,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: [".js", ".jsx"]
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
     // modules: [path.resolve(__dirname), 'node_modules', 'app', 'app/redux'],
     // alias: {
     //   Config: path.resolve('config')
@@ -39,27 +39,23 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify("production")
-    })
+    }),
+    // new BundleAnalyzerPlugin(),
   ],
-
-  // optimization: {
-  //  splitChunks: {
-  //    cacheGroups: {
-  //      vendor: {
-  //        name: "vendor",
-  //        test: /\.js?$/,
-  //        chunks: "all"
-  //      }
-  //    }
-  //  }
-  //},
 
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: ["babel-loader"]
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              silent: true,
+            }
+          }
+        ]
       },
       {
         test: /\.css/,

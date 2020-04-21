@@ -9,7 +9,11 @@ class UserController {
 
     // validate
     if (!form.login || !form.password) {
-      res.status(422).send(JSON.stringify({ data: 'invalid form data' }));
+      res.status(422).send(JSON.stringify({
+        error: {
+          message: 'invalid form data',
+        }
+      }));
       return;
     }
 
@@ -17,7 +21,11 @@ class UserController {
     const user = await UserModel.find(form.login);
 
     if (user) {
-      res.status(200).send(JSON.stringify({ data: 'duplicacted login' }));
+      res.status(422).send(JSON.stringify({
+        error: {
+          message: 'duplicacted login',
+        }
+      }));
       return;
     }
 
@@ -35,7 +43,15 @@ class UserController {
 
     // send response
     res.set('token', token);
-    res.status(200).send(JSON.stringify(newUser));
+    res.status(200).send(JSON.stringify({
+      data: {
+        user: {
+          id: newUser.id,
+          login: newUser.login,
+          created: newUser.created,
+        },
+      },
+    }));
   }
 
   static async signIn(req, res) {
@@ -43,7 +59,11 @@ class UserController {
 
     // validate
     if (!form.login || !form.password) {
-      res.status(422).send(JSON.stringify({ data: 'invalid form data' }));
+      res.status(422).send(JSON.stringify({
+        error: {
+          message: 'invalid form data',
+        }
+      }));
       return;
     }
 
@@ -52,7 +72,11 @@ class UserController {
 
     // check if already exists
     if (!user) {
-      res.status(401).send(JSON.stringify({ error: 'user not found' }));
+      res.status(422).send(JSON.stringify({
+        error: {
+          message: 'user not found',
+        }
+      }));
       return;
     }
 
@@ -60,7 +84,11 @@ class UserController {
     const match = await bcrypt.compare(form.password, user.hash);
 
     if (!match) {
-      res.status(401).send(JSON.stringify({ error: 'login/password is not found' }));
+      res.status(422).send(JSON.stringify({
+        error: {
+          message: 'login/password is not found',
+        }
+      }));
       return;
     }
 
@@ -72,7 +100,15 @@ class UserController {
 
     // send response
     res.set('token', token);
-    res.status(200).send(JSON.stringify(user));
+    res.status(200).send(JSON.stringify({
+      data: {
+        user: {
+          id: user.id,
+          login: user.login,
+          created: user.created,
+        },
+      },
+    }));
   }
 }
 

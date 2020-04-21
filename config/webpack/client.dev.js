@@ -10,7 +10,7 @@ module.exports = {
   entry: {
     app: [
       `webpack-dev-server/client?${DEV_SERVER_BASE_PATH}`,
-      path.resolve("client/index.js")
+      path.resolve("client/index.tsx")
     ]
   },
 
@@ -20,7 +20,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
     modules: [path.resolve(__dirname), "node_modules", "client"]
   },
 
@@ -44,14 +44,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
-        include: /node_modules/,
-        use: ["react-hot-loader/webpack"]
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        enforce: 'pre',
+        loader: 'tslint-loader',
+        options: {fix: true},
       },
       {
-        test: /\.jsx?$/,
+        test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: ["babel-loader"]
+        use: ['react-hot-loader/webpack', 'ts-loader'],
       },
       {
         test: /\.css/,
