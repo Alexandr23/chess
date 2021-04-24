@@ -80,8 +80,7 @@ class Api {
         game (id: ${id}) {${GAME}}
       }
     `;
-    return request<{ game: IGame }>(query)
-      .then(data => data.game);
+    return request<{ game: IGame }>(query).then(data => data.game);
   }
 
   getGameList(): Promise<IGame[]> {
@@ -90,8 +89,7 @@ class Api {
         gameList {${GAME}}
       }
     `;
-    return request<{ gameList: IGame[] }>(query)
-      .then(data => data.gameList);
+    return request<{ gameList: IGame[] }>(query).then(data => data.gameList);
   }
 
   createGame(game: ICreateGameRequest): Promise<IGame> {
@@ -100,8 +98,8 @@ class Api {
         createGame (playerWId: ${game.playerWId}, playerBId: ${game.playerBId}) {${GAME}}
       }
     `;
-    return request<{ game: IGame }>(query)
-      .then(data => data.game);
+    return request<{ createGame: IGame }>(query).then(data => data.createGame,
+    );
   }
 
   getUser(id: string): Promise<IUser> {
@@ -110,8 +108,7 @@ class Api {
         user (id: ${id}) {${USER}}
       }
     `;
-    return request<{ user: IUser }>(query)
-      .then(data => data.user);
+    return request<{ user: IUser }>(query).then(data => data.user);
   }
 
   getUserList(): Promise<IUser[]> {
@@ -120,8 +117,16 @@ class Api {
         userList {${USER}}
       }
     `;
-    return request<{ userList: IUser[] }>(query)
-      .then(data => data.userList);
+    return request<{ userList: IUser[] }>(query).then(data => data.userList);
+  }
+
+  getProfile(): Promise<IUser> {
+    const query = `
+      query {
+        profile {${USER}}
+      }
+    `;
+    return request<{ profile: IUser }>(query).then(data => data.profile);
   }
 
   signUp(user: ISignUpRequest): Promise<IUser> {

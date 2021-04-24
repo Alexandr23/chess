@@ -6,9 +6,14 @@ const INITIAL_STATE: ProfileStateInterface = {
   user: null,
   error: null,
   isRequesting: false,
+  isInitiallyRequested: false,
+  token: undefined,
 };
 
-export const profileReducer = (state: ProfileStateInterface = INITIAL_STATE, action: ProfileActionTypes): ProfileStateInterface => {
+export const profileReducer = (
+  state: ProfileStateInterface = INITIAL_STATE,
+  action: ProfileActionTypes,
+): ProfileStateInterface => {
   switch (action.type) {
     case ProfileActionTypeEnum.PROFILE_REQUEST_STARTED:
       return {
@@ -22,6 +27,7 @@ export const profileReducer = (state: ProfileStateInterface = INITIAL_STATE, act
         user: action.payload.user,
         error: null,
         isRequesting: false,
+        isInitiallyRequested: true,
       };
 
     case ProfileActionTypeEnum.PROFILE_REQUEST_FAILED:
@@ -30,6 +36,7 @@ export const profileReducer = (state: ProfileStateInterface = INITIAL_STATE, act
         user: null,
         error: action.payload,
         isRequesting: false,
+        isInitiallyRequested: true,
       };
 
     case ProfileActionTypeEnum.PROFILE_SET_USER:
@@ -42,6 +49,12 @@ export const profileReducer = (state: ProfileStateInterface = INITIAL_STATE, act
       return {
         ...state,
         user: null,
+      };
+
+    case ProfileActionTypeEnum.PROFILE_SET_TOKEN:
+      return {
+        ...state,
+        token: action.payload.token,
       };
 
     default:

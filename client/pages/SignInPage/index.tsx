@@ -1,79 +1,20 @@
 import * as React from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-import { api, ISignInRequest } from '../../services/ApiService';
+import { AppRoutesEnum } from '../../components/App/routes.enum';
 import { Layout } from '../../components/Layout';
+import { SignInForm } from '../../modules/sign-in-form/component';
+import { Link } from '../../modules/link/component';
 
-interface IState {
-  form: ISignInRequest;
-  isRequesting: boolean;
-}
+import './style.scss';
 
-class SignInPageComponent extends React.Component<RouteComponentProps, IState> {
-  constructor(props: RouteComponentProps) {
-    super(props);
+export const SignInPage = () => (
+  <Layout>
+    <div className="sign-in-page">
+      <SignInForm />
 
-    this.state = {
-      form: {
-        login: '',
-        password: '',
-      },
-      isRequesting: false,
-    };
-  }
-
-  private onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-
-    this.setState({ isRequesting: true });
-
-    api
-      .signIn(this.state.form)
-      .finally(() => {
-        this.setState({ isRequesting: false });
-      })
-      .then(console.log)
-      .catch(console.log);
-  }
-
-  private onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState({
-      form: {
-        ...this.state.form,
-        [event.target.name]: event.target.value,
-      },
-    });
-  }
-
-  public render() {
-    const { login, password } = this.state.form;
-
-    return (
-      <Layout>
-        <div className="sign-in-page">
-          <form onSubmit={this.onSubmit}>
-            <input
-              name="login"
-              type="text"
-              placeholder="Login"
-              value={login}
-              onChange={this.onChange}
-            />
-
-            <input
-              name="password"
-              type="text"
-              placeholder="Password"
-              value={password}
-              onChange={this.onChange}
-            />
-
-            <button type="submit">Sign in</button>
-          </form>
-        </div>
-      </Layout>
-    );
-  }
-}
-
-export const SignInPage = withRouter(SignInPageComponent);
+      <Link className="sign-in-page__link" to={AppRoutesEnum.SIGN_UP}>
+        Sign up
+      </Link>
+    </div>
+  </Layout>
+);

@@ -16,7 +16,7 @@ docker-compose up
 
 Залить дамп в контейнер `db`
 ```
-psql -h localhost -p 3030 -U postgres chess < dump.sql
+psql -h localhost -p 5432 -U postgres chess < dump.sql
 ```
 
 

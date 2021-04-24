@@ -4,4 +4,6 @@ export interface ProfileStateInterface {
   user: UserInterface | null;
   error: any;
   isRequesting: boolean;
+  isInitiallyRequested: boolean;
+  token: string | undefined;
 }

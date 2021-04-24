@@ -12,8 +12,22 @@ interface PropsInterface {
 
 export const ProfileCard = ({ user, onLogout }: PropsInterface) => (
   <div className="profile-card">
-    <div className="profile-card__login">{user.login}</div>
+    <div className="profile-card__image" />
 
-    <Button className="profile-card__logout-button" onClick={onLogout}>Logout</Button>
+    <div className="profile-card__body">
+      <div className="profile-card__content">
+        <div className="profile-card__avatar" />
+
+        <div className="profile-card__login">{user.login}</div>
+      </div>
+
+      <Button
+        className="profile-card__logout-button"
+        onClick={onLogout}
+        isSecondary
+      >
+        Logout
+      </Button>
+    </div>
   </div>
 );

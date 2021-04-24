@@ -1,16 +1,19 @@
 const express = require("express");
 const path = require("path");
-const bodyParser = require('body-parser')
+const bodyParser = require("body-parser");
 
 const { graphql } = require("./graphql/index");
 const { html } = require("./html.js");
-const routes = require('./routes/index');
-const validateToken = require('./middlewares/validate-token');
+const routes = require("./routes/index");
+const validateToken = require("./middlewares/validate-token");
 
 const app = express();
 const router = express.Router();
 
-app.use("/dist", express.static(path.join(__dirname, "../dist"), { fallthrough: false }));
+app.use(
+  "/dist",
+  express.static(path.join(__dirname, "../dist"), { fallthrough: false })
+);
 
 app.use(bodyParser.json());
 
@@ -24,4 +27,4 @@ app.use("/", (req, res) => {
 
 app.listen(process.env.PORT || process.env.APP_PORT);
 
-console.log(`Chess App running`);
+console.log(`Chess App is running`);

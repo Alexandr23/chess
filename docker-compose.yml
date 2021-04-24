@@ -12,14 +12,23 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: chess
-    volumes: 
+    volumes:
+      - ./server:/usr/src/app/server
       - ./client:/usr/src/app/client
+    networks:
+      - chess-network
 
   db:
-    image: postgres:11.2-alpine
+    image: chess-db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: chess
     ports:
-      - "3030:5432"
+      - "5432:5432"
+    networks:
+      - chess-network
+
+networks:
+  chess-network:
+    driver: bridge

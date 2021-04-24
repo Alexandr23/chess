@@ -2,39 +2,25 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.19
--- Dumped by pg_dump version 9.5.19
+-- Dumped from database version 11.2
+-- Dumped by pg_dump version 11.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
-SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
 
 SET default_tablespace = '';
 
 SET default_with_oids = false;
 
 --
--- Name: games; Type: TABLE; Schema: public; Owner: tggelqhlazkxne
+-- Name: games; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.games (
@@ -46,10 +32,10 @@ CREATE TABLE public.games (
 );
 
 
-ALTER TABLE public.games OWNER TO tggelqhlazkxne;
+ALTER TABLE public.games OWNER TO postgres;
 
 --
--- Name: games_id_seq; Type: SEQUENCE; Schema: public; Owner: tggelqhlazkxne
+-- Name: games_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.games_id_seq
@@ -60,17 +46,17 @@ CREATE SEQUENCE public.games_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.games_id_seq OWNER TO tggelqhlazkxne;
+ALTER TABLE public.games_id_seq OWNER TO postgres;
 
 --
--- Name: games_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tggelqhlazkxne
+-- Name: games_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.games_id_seq OWNED BY public.games.id;
 
 
 --
--- Name: moves; Type: TABLE; Schema: public; Owner: tggelqhlazkxne
+-- Name: moves; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.moves (
@@ -83,10 +69,10 @@ CREATE TABLE public.moves (
 );
 
 
-ALTER TABLE public.moves OWNER TO tggelqhlazkxne;
+ALTER TABLE public.moves OWNER TO postgres;
 
 --
--- Name: moves_id_seq; Type: SEQUENCE; Schema: public; Owner: tggelqhlazkxne
+-- Name: moves_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.moves_id_seq
@@ -97,30 +83,31 @@ CREATE SEQUENCE public.moves_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.moves_id_seq OWNER TO tggelqhlazkxne;
+ALTER TABLE public.moves_id_seq OWNER TO postgres;
 
 --
--- Name: moves_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tggelqhlazkxne
+-- Name: moves_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.moves_id_seq OWNED BY public.moves.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: tggelqhlazkxne
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.users (
     id integer NOT NULL,
-    name character varying(255),
-    created timestamp with time zone DEFAULT now() NOT NULL
+    login character varying(255),
+    created timestamp with time zone DEFAULT now() NOT NULL,
+    hash character varying NOT NULL
 );
 
 
-ALTER TABLE public.users OWNER TO tggelqhlazkxne;
+ALTER TABLE public.users OWNER TO postgres;
 
 --
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: tggelqhlazkxne
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.users_id_seq
@@ -131,54 +118,47 @@ CREATE SEQUENCE public.users_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.users_id_seq OWNER TO tggelqhlazkxne;
+ALTER TABLE public.users_id_seq OWNER TO postgres;
 
 --
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tggelqhlazkxne
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: tggelqhlazkxne
+-- Name: games id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.games ALTER COLUMN id SET DEFAULT nextval('public.games_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: tggelqhlazkxne
+-- Name: moves id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.moves ALTER COLUMN id SET DEFAULT nextval('public.moves_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: tggelqhlazkxne
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
--- Data for Name: games; Type: TABLE DATA; Schema: public; Owner: tggelqhlazkxne
+-- Data for Name: games; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.games (id, creator_id, create_time, player_w_id, player_b_id) FROM stdin;
-1	1	2019-08-04 17:28:38.60012+07	1	2
+1	1	2019-08-04 10:28:38.60012+00	1	2
 \.
 
 
 --
--- Name: games_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tggelqhlazkxne
---
-
-SELECT pg_catalog.setval('public.games_id_seq', 1, true);
-
-
---
--- Data for Name: moves; Type: TABLE DATA; Schema: public; Owner: tggelqhlazkxne
+-- Data for Name: moves; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.moves (id, game_id, player_id, fen_from, fen_to, create_time) FROM stdin;
@@ -186,31 +166,39 @@ COPY public.moves (id, game_id, player_id, fen_from, fen_to, create_time) FROM s
 
 
 --
--- Name: moves_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tggelqhlazkxne
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (id, login, created, hash) FROM stdin;
+1	Alex	2019-08-04 10:14:05.670553+00	random
+2	Lilu	2019-08-04 10:14:05.670553+00	random
+3	Test	2021-04-10 11:16:18.809012+00	$2b$10$8JtyCNaGjEwkngy8LJje9urXhSm49JjZsC.xIP288ZCcGgzvODnIG
+\.
+
+
+--
+-- Name: games_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.games_id_seq', 1, true);
+
+
+--
+-- Name: moves_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.moves_id_seq', 1, false);
 
 
 --
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: tggelqhlazkxne
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-COPY public.users (id, name, created) FROM stdin;
-1	Alex	2019-08-04 17:14:05.670553+07
-2	Lilu	2019-08-04 17:14:05.670553+07
-\.
+SELECT pg_catalog.setval('public.users_id_seq', 3, true);
 
 
 --
--- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tggelqhlazkxne
---
-
-SELECT pg_catalog.setval('public.users_id_seq', 2, true);
-
-
---
--- Name: games_pkey; Type: CONSTRAINT; Schema: public; Owner: tggelqhlazkxne
+-- Name: games games_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.games
@@ -218,7 +206,7 @@ ALTER TABLE ONLY public.games
 
 
 --
--- Name: moves_pkey; Type: CONSTRAINT; Schema: public; Owner: tggelqhlazkxne
+-- Name: moves moves_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.moves
@@ -226,7 +214,7 @@ ALTER TABLE ONLY public.moves
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: tggelqhlazkxne
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.users
@@ -234,7 +222,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: fk_game_creator; Type: FK CONSTRAINT; Schema: public; Owner: tggelqhlazkxne
+-- Name: games fk_game_creator; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.games
@@ -242,7 +230,7 @@ ALTER TABLE ONLY public.games
 
 
 --
--- Name: fk_game_id; Type: FK CONSTRAINT; Schema: public; Owner: tggelqhlazkxne
+-- Name: moves fk_game_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.moves
@@ -250,7 +238,7 @@ ALTER TABLE ONLY public.moves
 
 
 --
--- Name: fk_game_player_b; Type: FK CONSTRAINT; Schema: public; Owner: tggelqhlazkxne
+-- Name: games fk_game_player_b; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.games
@@ -258,7 +246,7 @@ ALTER TABLE ONLY public.games
 
 
 --
--- Name: fk_game_player_w; Type: FK CONSTRAINT; Schema: public; Owner: tggelqhlazkxne
+-- Name: games fk_game_player_w; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.games
@@ -266,21 +254,11 @@ ALTER TABLE ONLY public.games
 
 
 --
--- Name: fk_player_id; Type: FK CONSTRAINT; Schema: public; Owner: tggelqhlazkxne
+-- Name: moves fk_player_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.moves
     ADD CONSTRAINT fk_player_id FOREIGN KEY (player_id) REFERENCES public.users(id);
-
-
---
--- Name: SCHEMA public; Type: ACL; Schema: -; Owner: tggelqhlazkxne
---
-
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM tggelqhlazkxne;
-GRANT ALL ON SCHEMA public TO tggelqhlazkxne;
-GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --

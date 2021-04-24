@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 
 import { AppRoutesEnum } from '../../components/App/routes.enum';
+import { Route } from '../../components/App/route';
 import { GameListPage } from '../../pages/GameListPage';
 import { GamePage } from '../../pages/GamePage';
 import { GameCreatePage } from '../../pages/GameCreatePage';
@@ -13,19 +14,19 @@ import { ProfilePage } from '../../pages/profile-page';
 export const AppRoutes = () => (
   <BrowserRouter>
     <Switch>
-      <Route path={AppRoutesEnum.GAME_LIST}>
+      <Route path={AppRoutesEnum.GAME_LIST} isAuthorizationRequired>
         <GameListPage />
       </Route>
 
-      <Route path={AppRoutesEnum.GAME_CREATE}>
+      <Route path={AppRoutesEnum.GAME_CREATE} isAuthorizationRequired>
         <GameCreatePage />
       </Route>
 
-      <Route path={AppRoutesEnum.GAME}>
+      <Route path={AppRoutesEnum.GAME} isAuthorizationRequired>
         <GamePage />
       </Route>
 
-      <Route path={AppRoutesEnum.USER_LIST}>
+      <Route path={AppRoutesEnum.USER_LIST} isAuthorizationRequired>
         <UserListPage />
       </Route>
 
@@ -37,7 +38,7 @@ export const AppRoutes = () => (
         <SignInPage />
       </Route>
 
-      <Route path={AppRoutesEnum.PROFILE}>
+      <Route path={AppRoutesEnum.PROFILE} isAuthorizationRequired>
         <ProfilePage />
       </Route>
     </Switch>

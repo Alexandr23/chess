@@ -1,15 +1,16 @@
 FROM node
 
-#RUN npm install -g nodemon
+RUN npm install -g nodemon
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
-
-RUN npm install
+COPY package.json ./
+COPY yarn.lock ./
 
 COPY . .
 
-EXPOSE 8080
+RUN yarn
 
-CMD npm run dev
+EXPOSE 8889
+
+CMD yarn dev

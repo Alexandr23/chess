@@ -2,10 +2,15 @@ const { GraphQLObjectType, GraphQLSchema } = require("graphql");
 
 const { GraphqlGameQuery } = require("../graphql/game/query");
 const { GraphqlGameListQuery } = require("../graphql/game/list-query");
-const { GraphqlGameCreateMutation } = require("../graphql/game/create-mutation");
+const {
+  GraphqlGameCreateMutation,
+} = require("../graphql/game/create-mutation");
 const { GraphqlUserQuery } = require("../graphql/user/query");
 const { GraphqlUserListQuery } = require("../graphql/user/list-query");
-const { GraphqlUserCreateMutation } = require("../graphql/user/create-mutation");
+const {
+  GraphqlUserCreateMutation,
+} = require("../graphql/user/create-mutation");
+const { GraphqlProfileQuery } = require("../graphql/profile/query");
 
 const query = new GraphQLObjectType({
   name: "Query",
@@ -14,7 +19,8 @@ const query = new GraphQLObjectType({
     userList: GraphqlUserListQuery,
     game: GraphqlGameQuery,
     gameList: GraphqlGameListQuery,
-  }
+    profile: GraphqlProfileQuery,
+  },
 });
 
 const mutation = new GraphQLObjectType({
@@ -22,7 +28,7 @@ const mutation = new GraphQLObjectType({
   fields: {
     createGame: GraphqlGameCreateMutation,
     createUser: GraphqlUserCreateMutation,
-  }
+  },
 });
 
 const schema = new GraphQLSchema({

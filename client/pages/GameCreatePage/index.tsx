@@ -7,14 +7,17 @@ import { api, IUser } from '../../services/ApiService';
 
 interface IState {
   form: {
-    playerWId: string,
-    playerBId: string,
+    playerWId: string;
+    playerBId: string;
   };
   isSubmitting: boolean;
   userList: IUser[];
 }
 
-class GameCreatePageComponent extends React.Component<RouteComponentProps, IState> {
+class GameCreatePageComponent extends React.Component<
+  RouteComponentProps,
+  IState
+> {
   constructor(props: RouteComponentProps) {
     super(props);
 
@@ -60,8 +63,6 @@ class GameCreatePageComponent extends React.Component<RouteComponentProps, IStat
   }
 
   onSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(event);
-
     this.setState({
       form: {
         ...this.state.form,
@@ -79,18 +80,26 @@ class GameCreatePageComponent extends React.Component<RouteComponentProps, IStat
               name="playerWId"
               style={{ width: 200 }}
               placeholder="Select a player"
-              onSelect={this.onSelect}
+              onChange={this.onSelect}
             >
-              {this.state.userList.map(user => <option key={user.id} value={user.id}>{user.login}</option>)}
+              {this.state.userList.map(user => (
+                <option key={user.id} value={user.id}>
+                  {user.login}
+                </option>
+              ))}
             </select>
 
             <select
               name="playerBId"
               style={{ width: 200 }}
               placeholder="Select a player"
-              onSelect={this.onSelect}
+              onChange={this.onSelect}
             >
-              {this.state.userList.map(user => <option key={user.id} value={user.id}>{user.login}</option>)}
+              {this.state.userList.map(user => (
+                <option key={user.id} value={user.id}>
+                  {user.login}
+                </option>
+              ))}
             </select>
 
             <button type="submit">Create</button>
