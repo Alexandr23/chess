@@ -105,7 +105,7 @@ class UserController {
     }
 
     // generate token
-    const payload = { login: user.login };
+    const payload = { login: user.login, id: user.id };
     const options = { expiresIn: process.env.JWT_EXPIRES_IN };
     const secret = process.env.JWT_SECRET;
     const token = jwt.sign(payload, secret, options);

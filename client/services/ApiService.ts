@@ -22,6 +22,13 @@ const GAME = `
   creator {${USER}}
 `;
 
+const GAME_REQUEST = `
+  id
+  userId
+  color
+  create_time
+`;
+
 export interface IUser {
   id: string;
   login: string;
@@ -58,6 +65,21 @@ export interface ISignInRequest {
 export interface ICreateGameRequest {
   playerWId: string;
   playerBId: string;
+}
+
+export enum Color {
+  White = 'white',
+  Black = 'black',
+}
+
+export interface IGameRequest {
+  id: string;
+  userId: string;
+  color: Color | undefined | null;
+}
+
+export interface ICreateGameRequestRequest {
+  color: Color | undefined | null;
 }
 
 const request = <T>(query: string): Promise<T> => {
@@ -99,6 +121,18 @@ class Api {
       }
     `;
     return request<{ createGame: IGame }>(query).then(data => data.createGame,
+    );
+  }
+
+  createGameRequest(
+    gameRequest: ICreateGameRequestRequest,
+  ): Promise<IGameRequest> {
+    const query = `
+      mutation {
+        createGameRequest (color: ${gameRequest.color}) {${GAME_REQUEST}}
+      }
+    `;
+    return request<{ createGameRequest: IGameRequest }>(query).then(data => data.createGameRequest,
     );
   }
 

@@ -3,12 +3,13 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { Layout } from '../../components/Layout';
 
-import { api, IUser } from '../../services/ApiService';
+import { api, IUser, Color } from '../../services/ApiService';
 
 interface IState {
   form: {
-    playerWId: string;
-    playerBId: string;
+    // playerWId: string;
+    // playerBId: string;
+    color: Color | null;
   };
   isSubmitting: boolean;
   userList: IUser[];
@@ -23,8 +24,9 @@ class GameCreatePageComponent extends React.Component<
 
     this.state = {
       form: {
-        playerWId: '',
-        playerBId: '',
+        // playerWId: "",
+        // playerBId: "",
+        color: null,
       },
       isSubmitting: false,
       userList: [],
@@ -41,14 +43,32 @@ class GameCreatePageComponent extends React.Component<
     });
   }
 
-  createGame(): void {
+  // createGame(): void {
+  //   this.setState({ isSubmitting: true });
+
+  //   api
+  //     .createGame(this.state.form)
+  //     .then((game) => {
+  //       this.setState({ isSubmitting: false });
+  //       this.props.history.push(`/game/${game.id}`);
+  //     })
+  //     .catch((error) => {
+  //       this.setState({ isSubmitting: false });
+  //       console.log(error);
+  //     });
+  // }
+
+  createGameRequest(): void {
     this.setState({ isSubmitting: true });
 
     api
-      .createGame(this.state.form)
-      .then(game => {
+      .createGameRequest({
+        color: this.state.form.color,
+      })
+      .then(gameRequest => {
         this.setState({ isSubmitting: false });
-        this.props.history.push(`/game/${game.id}`);
+        // this.props.history.push(`/game/${game.id}`);
+        console.log({ gameRequest });
       })
       .catch(error => {
         this.setState({ isSubmitting: false });
@@ -59,14 +79,15 @@ class GameCreatePageComponent extends React.Component<
   onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    this.createGame();
+    // this.createGame();
+    this.createGameRequest();
   }
 
   onSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({
       form: {
         ...this.state.form,
-        [event.target.name]: event.target.value,
+        [event.target.name]: event.target.value || null,
       },
     });
   }
@@ -77,6 +98,17 @@ class GameCreatePageComponent extends React.Component<
         <div className="game-create-page">
           <form onSubmit={this.onSubmit}>
             <select
+              name="color"
+              style={{ width: 200 }}
+              placeholder="Select color"
+              onChange={this.onSelect}
+            >
+              <option key={Color.White} value={Color.White} label={'White'} />
+              <option key={Color.Black} value={Color.Black} label={'Black'} />
+              <option key={'Any'} value={undefined} label={'Any'} />
+            </select>
+
+            {/* <select
               name="playerWId"
               style={{ width: 200 }}
               placeholder="Select a player"
@@ -100,7 +132,7 @@ class GameCreatePageComponent extends React.Component<
                   {user.login}
                 </option>
               ))}
-            </select>
+            </select> */}
 
             <button type="submit">Create</button>
           </form>

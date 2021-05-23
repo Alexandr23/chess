@@ -11,6 +11,9 @@ const {
   GraphqlUserCreateMutation,
 } = require("../graphql/user/create-mutation");
 const { GraphqlProfileQuery } = require("../graphql/profile/query");
+const {
+  GraphqlGameRequestCreateMutation,
+} = require("../graphql/game-request/create-mutation");
 
 const query = new GraphQLObjectType({
   name: "Query",
@@ -28,6 +31,7 @@ const mutation = new GraphQLObjectType({
   fields: {
     createGame: GraphqlGameCreateMutation,
     createUser: GraphqlUserCreateMutation,
+    createGameRequest: GraphqlGameRequestCreateMutation,
   },
 });
 
