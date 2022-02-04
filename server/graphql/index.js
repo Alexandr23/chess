@@ -1,4 +1,4 @@
-const graphqlHTTP = require("express-graphql");
+const { graphqlHTTP } = require("express-graphql");
 const { schema } = require("../graphql/schema");
 
 exports.graphql = graphqlHTTP((request) => ({

@@ -10,7 +10,7 @@ exports.GameType = new GraphQLObjectType({
   fields: {
     id: { type: GraphQLString },
     history: {
-      type: GraphQLList(MoveType),
+      type: new GraphQLList(MoveType),
       resolve(parentValue) {
         const query = `SELECT * FROM moves WHERE game_id=$1`;
         const values = [parentValue.id];

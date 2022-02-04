@@ -64,7 +64,6 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              fallback: "style-loader",
               publicPath: "/"
             }
           },
@@ -78,7 +77,6 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              fallback: "style-loader",
               publicPath: "/"
             }
           },
@@ -98,7 +96,6 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              fallback: "style-loader",
               publicPath: "/"
             }
           },
